@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class CalculatorFunctionAdapter implements CalculatorFunctionPort {
 
@@ -62,6 +63,12 @@ public class CalculatorFunctionAdapter implements CalculatorFunctionPort {
 	@Override
 	public List<Integer> getNumbers() {
 		return this.numbers;
+	}
+
+	@Override
+	public int getResults() {
+		return this.numbers.stream()
+			.reduce(0, Integer::sum);
 	}
 
 	private boolean isCharSplitter(String checkString, int location) {
