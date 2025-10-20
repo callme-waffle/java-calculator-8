@@ -1,5 +1,7 @@
 package calculator.io;
 
+import static calculator.utils.ValidationUtil.*;
+
 import camp.nextstep.edu.missionutils.Console;
 
 public class CalculatorIOAdapter implements CalculatorIOPort {
@@ -8,7 +10,9 @@ public class CalculatorIOAdapter implements CalculatorIOPort {
 	}
 
 	public String getInputString() {
-		return Console.readLine();
+		String input = Console.readLine();
+		checkInputValidate(input);
+		return input;
 	}
 
 	@Override
