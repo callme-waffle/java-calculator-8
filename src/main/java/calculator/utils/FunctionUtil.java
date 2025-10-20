@@ -2,7 +2,7 @@ package calculator.utils;
 
 public class FunctionUtil {
 	public static boolean isCustomSplitterDefinitionFormatDetected(String input) {
-		return input.startsWith("//") && input.contains("\\n");
+		return input.contains("\\n");
 	}
 
 	public static Integer extractNumberFromRange(String str, int si) {

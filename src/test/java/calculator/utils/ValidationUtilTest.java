@@ -1,12 +1,13 @@
 package calculator.utils;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import calculator.exceptions.InputStringNotBeEndedByNumberException;
-import calculator.exceptions.InputStringNotBeStartedByNumberException;
+import calculator.exceptions.CustomSplitterDefinitionBeStartedWithDoubleSlash;
+import calculator.exceptions.CustomSplitterDefinitionNotBeContainsNumber;
+import calculator.exceptions.DetectionStringNotBeEndedByNumberException;
+import calculator.exceptions.DetectionStringNotBeStartedByNumberException;
 import calculator.exceptions.SpecialCharacterAppearedTwiceException;
 
 class ValidationUtilTest {
@@ -20,12 +21,25 @@ class ValidationUtilTest {
 	@Test
 	void checkInputStartValidate() {
 		assertThatThrownBy(() -> ValidationUtil.checkInputValidate(",1,2,3,4"))
-			.isInstanceOf(InputStringNotBeStartedByNumberException.class);
+			.isInstanceOf(DetectionStringNotBeStartedByNumberException.class);
 	}
 
 	@Test
 	void checkInputEndValidate() {
 		assertThatThrownBy(() -> ValidationUtil.checkInputValidate("1,2,3,4,"))
-			.isInstanceOf(InputStringNotBeEndedByNumberException.class);
+			.isInstanceOf(DetectionStringNotBeEndedByNumberException.class);
 	}
+
+	@Test
+	void checkCustomSplitterDefinitionStartsWithDoubleSlashValidate() {
+		assertThatThrownBy(() -> ValidationUtil.checkInputValidate(";'\\n1,2,3,4,"))
+			.isInstanceOf(CustomSplitterDefinitionBeStartedWithDoubleSlash.class);
+	}
+
+	@Test
+	void checkCustomSplitterDefinitionNotContainsNumberValidate() {
+		assertThatThrownBy(() -> ValidationUtil.checkInputValidate("//123\\n1,2,3,4"))
+			.isInstanceOf(CustomSplitterDefinitionNotBeContainsNumber.class);
+	}
+
 }
